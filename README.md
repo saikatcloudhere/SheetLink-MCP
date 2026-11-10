@@ -2,6 +2,8 @@
 
 Connect a Google Sheet to Claude Desktop, Google Antigravity, or OpenAI Codex. You can ask your AI app to read rows, find records, or make edits you request. The setup wizard runs in your browser and registers the connection in your chosen apps.
 
+![SheetLink MCP setup wizard showing the AI app choices and Google Sheet connection form](./docs/sheetlink-onboarding.png)
+
 ## Before you start
 
 - Use a 64-bit Windows PC or an Intel or Apple Silicon Mac with internet access. The launcher prepares Python for you.
