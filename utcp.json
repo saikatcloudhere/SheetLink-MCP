@@ -1,0 +1,121 @@
+{
+  "manual_version": "1.0.0",
+  "utcp_version": "1.0.0",
+  "allowed_communication_protocols": ["http"],
+  "info": {
+    "title": "SheetLink-MCP Universal Provider",
+    "version": "1.0.0",
+    "description": "Zero-wrapper universal integration allowing AI agents to read, append, search, and update Google Sheets without intermediary proxy layers.",
+    "author": "Saikat",
+    "repository": "https://github.com/saikatcloudhere/SheetLink-MCP"
+  },
+  "tools": [
+    {
+      "name": "read_sheet_records",
+      "description": "Reads and returns all existing rows and columns from the specified Google Sheet worksheet tab.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "sheet_name": {
+            "type": "string",
+            "description": "Optional worksheet tab name. Defaults to active tab if omitted."
+          }
+        }
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "sheet_name": { "type": "string" },
+          "total_rows": { "type": "integer" },
+          "data": { "type": "array" }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "${GOOGLE_SHEET_WEBAPP_URL}",
+        "http_method": "GET"
+      }
+    },
+    {
+      "name": "append_new_row",
+      "description": "Appends a new row of data to the Google Sheet.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "default": "append_row"
+          },
+          "row_data": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Array of cell values, e.g. ['John Doe', 'john@example.com', '$4,500', 'Paid']"
+          },
+          "sheet_name": {
+            "type": "string",
+            "description": "Optional target worksheet tab name."
+          }
+        },
+        "required": ["action", "row_data"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "sheet_name": { "type": "string" },
+          "message": { "type": "string" },
+          "row_count": { "type": "integer" }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "${GOOGLE_SHEET_WEBAPP_URL}",
+        "http_method": "POST"
+      }
+    },
+    {
+      "name": "update_cell_by_search",
+      "description": "Finds a row by search text and updates a specific 1-based column cell.",
+      "inputs": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "default": "update_cell"
+          },
+          "search_text": {
+            "type": "string",
+            "description": "Value or identifier to locate the target row"
+          },
+          "column_index": {
+            "type": "integer",
+            "description": "1-based column index to update"
+          },
+          "new_value": {
+            "type": "string",
+            "description": "New value to write to the cell"
+          },
+          "sheet_name": {
+            "type": "string",
+            "description": "Optional target worksheet tab name."
+          }
+        },
+        "required": ["action", "search_text", "column_index", "new_value"]
+      },
+      "outputs": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string" },
+          "sheet_name": { "type": "string" },
+          "message": { "type": "string" }
+        }
+      },
+      "tool_provider": {
+        "provider_type": "http",
+        "url": "${GOOGLE_SHEET_WEBAPP_URL}",
+        "http_method": "POST"
+      }
+    }
+  ]
+}

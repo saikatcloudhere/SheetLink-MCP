@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment and sensitive configuration files
+config.json
+.env
+.venv/
+.setup-tools/
+env/
+venv/
+
+# Operating system artifacts
+.DS_Store
+Thumbs.db
+
+# IDE configuration
+.vscode/
+.idea/
