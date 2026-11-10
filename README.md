@@ -1,6 +1,8 @@
 # SheetLink-MCP
 
-Connect a Google Sheet to Claude Desktop, Google Antigravity, or OpenAI Codex. You can ask your AI app to read rows, find records, or make edits you request. The setup wizard runs in your browser and registers the connection in your chosen apps.
+> *Connect Google Sheets to Claude Desktop, Cursor, Google Antigravity, and OpenAI Codex with **MCP**. Includes a **UTCP** example.*
+
+Use the browser setup wizard for Claude Desktop, Google Antigravity, or OpenAI Codex. Cursor uses manual setup. Once connected, ask your AI app to read rows, find records, or make edits you request.
 
 ![SheetLink MCP setup wizard showing the AI app choices and Google Sheet connection form](./docs/sheetlink-onboarding.png)
 
