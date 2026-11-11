@@ -67,6 +67,8 @@ def render_page(path, sheet_url, selected, message="", done=False):
             <li><button type="button" id="copy">Copy the ready-made script</button>
                 <span id="copy-status" role="status"></span>
                 Paste it in place of the starter text in Apps Script, then save.</li>
+            <li>In the function dropdown at the top of Apps Script, choose <strong>setupSheetLink</strong>
+                and click <strong>Run</strong>. Approve Google's permission prompt if it appears.</li>
             <li>Choose <strong>Deploy → New deployment → Web app</strong>.
                 Set <strong>Execute as</strong> to <strong>Me</strong> and
                 <strong>Who has access</strong> to <strong>Anyone</strong>.</li>

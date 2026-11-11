@@ -7,10 +7,18 @@
  * 1. Open your target Google Sheet (https://sheets.new).
  * 2. Click Extensions > Apps Script in the top menu.
  * 3. Replace all existing text with this code.
- * 4. Click Deploy > New deployment > Select 'Web app'.
- * 5. Set 'Execute as' to 'Me' and 'Who has access' to 'Anyone' (IMPORTANT: Do NOT select 'Only myself'!).
- * 6. Click Deploy, grant permissions, and copy the Web App URL.
+ * 4. Save, select setupSheetLink, and click Run. Approve permissions if asked.
+ * 5. Click Deploy > New deployment and select Web app.
+ * 6. Set Execute as to Me and Who has access to Anyone, then copy the Web App URL.
  */
+
+function setupSheetLink() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  if (!spreadsheet) {
+    throw new Error("Open Apps Script from your Google Sheet and run setupSheetLink in the editor.");
+  }
+  PropertiesService.getScriptProperties().setProperty("SHEETLINK_SPREADSHEET_ID", spreadsheet.getId());
+}
 
 function doGet(e) {
   return handleRequest(e, "GET");
@@ -22,7 +30,14 @@ function doPost(e) {
 
 function handleRequest(e, method) {
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var spreadsheetId = PropertiesService.getScriptProperties().getProperty("SHEETLINK_SPREADSHEET_ID");
+    if (!spreadsheetId) {
+      return jsonResponse({
+        status: "error",
+        message: "Run setupSheetLink once from the Apps Script editor linked to your Google Sheet."
+      });
+    }
+    var ss = SpreadsheetApp.openById(spreadsheetId);
     var action = "read";
     var payload = {};
 
@@ -41,7 +56,7 @@ function handleRequest(e, method) {
       action = e.parameter.action;
     }
 
-    // 2. Select target worksheet tab (defaults to active sheet if not specified)
+    // 2. Select target worksheet tab (defaults to the first tab if not specified)
     var targetSheetName = payload.sheet_name || (e && e.parameter ? e.parameter.sheet_name : null);
     var sheet;
     if (targetSheetName) {
@@ -53,7 +68,7 @@ function handleRequest(e, method) {
         });
       }
     } else {
-      sheet = ss.getActiveSheet();
+      sheet = ss.getSheets()[0];
     }
 
     // ACTION 1: Read all records

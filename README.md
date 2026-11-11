@@ -14,7 +14,7 @@ Use the browser setup wizard for Claude Desktop, Google Antigravity, or OpenAI C
 
 ## 1. Download and open the setup wizard
 
-1. Open the project's [GitHub Releases page](https://github.com/saikatcloudhere/SheetLink-MCP/releases). When a release is available, open **Assets** and choose the setup ZIP for your computer. If you already received a setup ZIP, use that file.
+1. Open the project's [latest GitHub Release](https://github.com/saikatcloudhere/SheetLink-MCP/releases/latest). Under **Assets**, choose the setup ZIP for your computer.
 2. Extract the entire ZIP. On Windows, right-click it and choose **Extract All**. On Mac, double-click it in Finder. Keep the extracted folder in a permanent location.
 3. Open the extracted **SheetLink-MCP** folder and launch the file for your computer.
 
@@ -31,10 +31,10 @@ Use the browser setup wizard for Claude Desktop, Google Antigravity, or OpenAI C
 1. Open a [blank Google Sheet](https://sheets.new). In the first tab, type **Item** in cell A1 and **Notebook** in cell A2. Note the tab name at the bottom. You will use it for the first test.
 2. In the sheet's menu, choose **Extensions → Apps Script**. This opens Google's script editor in a new tab.
 3. In the SheetLink setup page, open **Where do I find my Web App URL?** and click **Copy the ready-made script**. Back in Apps Script, select all the starter text, paste the copied script, and click **Save**.
-4. In Apps Script, click **Deploy → New deployment**. Next to **Select type**, use the gear menu to choose **Web app**.
-5. Enter **SheetLink test** as the description. Set **Execute as** to **Me** and **Who has access** to **Anyone**. If your Google account does not offer **Anyone**, check with your Workspace administrator before continuing.
-6. Click **Deploy**. If Google asks you to authorize access, choose the account that owns the test sheet and review the permissions.
-7. Copy the **Web app URL** from the deployment window. It starts with `https://script.google.com/` and ends in `/exec`.
+4. In the Apps Script toolbar, choose **setupSheetLink** from the function dropdown and click **Run**. Review and approve Google's permission prompt if it appears. This links the script to the sheet you opened.
+5. Click **Deploy → New deployment**. Next to **Select type**, use the gear menu to choose **Web app**.
+6. Enter **SheetLink test** as the description. Set **Execute as** to **Me** and **Who has access** to **Anyone**. If your Google account does not offer **Anyone**, check with your Workspace administrator before continuing.
+7. Click **Deploy**, then copy the **Web app URL** from the deployment window. It starts with `https://script.google.com/` and ends in `/exec`.
 
 See Google's [Web Apps guide](https://developers.google.com/apps-script/guides/web) for deployment and permission details.
 
@@ -56,7 +56,7 @@ See Google's [Web Apps guide](https://developers.google.com/apps-script/guides/w
 | macOS says the launcher cannot be executed | If you trust the downloaded files, open Terminal, type `bash` followed by a space, drag `RUN_SETUP.command` into Terminal, then press Return. |
 | The wizard asks for a URL ending in `/exec` | Go to Apps Script → **Deploy → Manage deployments** and copy the deployed Web app URL. The normal spreadsheet link and the test URL ending in `/dev` serve different purposes. |
 | Google blocks the connection or asks for sign-in | In **Manage deployments**, check the deployment uses **Me** and **Anyone**, and confirm the owner approved access. |
-| The wizard reports a script error about a missing or null spreadsheet | Stop at this step and report the error. Google documents that the active spreadsheet may be unavailable when the script runs as a web app. [Google's container-bound script guide](https://developers.google.com/apps-script/guides/bound#special_methods) |
+| The wizard asks you to run `setupSheetLink` | In the Apps Script editor opened from your sheet, select **setupSheetLink** and click **Run**. Then retry in the wizard. |
 | The AI app cannot find SheetLink | Fully quit and reopen the app. If you moved the extracted folder, run setup again from its new location. |
 
 For help, [open a GitHub issue](https://github.com/saikatcloudhere/SheetLink-MCP/issues) with your operating system, AI app, and the error text. Remove your Web App URL and any spreadsheet data from the report.
@@ -72,6 +72,6 @@ The wizard saves the Web App URL in `config.json` and registers `sheetlink-mcp` 
 | `append_new_row` | Adds a row at the bottom of a tab. |
 | `update_cell_by_search` | Finds the first matching row and updates one cell in it. |
 
-The Windows setup ZIP also includes `OPEN_DASHBOARD.bat` for opening the desktop sheet viewer after setup. The source includes a separate UTCP example in `utcp.json`.
+Omit the worksheet name to use the first tab with the Apps Script in this release. The Windows setup ZIP also includes `OPEN_DASHBOARD.bat` for opening the desktop sheet viewer after setup. The source includes a separate UTCP example in `utcp.json`.
 
 Maintained by [Saikat](https://github.com/saikatcloudhere). Distributed under the [MIT License](./LICENSE).
